@@ -23,4 +23,11 @@ class Country extends Model
     {
         return $this->hasOne(Statistic::class);
     }
+
+    public function scopeFilter($query, $field, $value)
+    {
+        $query->when($value, function($query) use ($field, $value) {
+            $query->where($field, $value);
+        });
+    }
 }

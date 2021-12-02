@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('apg:get-statistic')->dailyAt('00:57')->withoutOverlapping();
     }
 
     /**

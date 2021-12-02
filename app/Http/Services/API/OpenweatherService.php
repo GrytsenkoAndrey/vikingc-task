@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Log;
 class OpenweatherService
 {
     /**
-     * City ID should be found on the http://bulk.openweathermap.org/sample/
+     * Weather Forecast for current day by City name
      * @param string $cityId
+     * @return array
      */
-    public function getCurrentWeatherArray(string $city_name): array
+    public function getData(string $city_name): array
     {
         if (empty(trim($city_name))) {
             $message = __METHOD__ . '; line: ' . __LINE__ . ' an empty given parameter';

@@ -23,10 +23,17 @@
     <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark" href="#">{{ config('APP_NAME') }}</a>
+                <a class="blog-header-logo text-dark" href="#">{{ config('app.name') }}</a>
             </div>
         </div>
     </header>
+
+    <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+            <a class="p-2 @if (\Illuminate\Support\Facades\Route::currentRouteName() == 'country.index') text-muted @endif" href="{{ route('country.index') }}">Countries</a>
+            <a class="p-2 @if (\Illuminate\Support\Facades\Route::currentRouteName() == 'test') text-muted @endif" href="{{ route('test') }}">Test</a>
+        </nav>
+    </div>
 
     @yield('content')
 </div>

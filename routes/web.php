@@ -18,16 +18,13 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    #$r = (new \App\Http\Services\API\HotelService())->getHotels('new york');
-    $r = (new \App\Http\Services\API\OpenweatherService())->getCurrentWeatherArray('Dnepr');
 
-    dd($r);
-});
+})->name('test');
 
 
 Route::group([
     'prefix' => 'country',
-    'as'     => '.country'
+    'as'     => 'country.'
 ], function () {
     Route::get('/', [\App\Http\Controllers\CountryController::class, 'index'])->name('index');
 });

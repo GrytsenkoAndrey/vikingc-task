@@ -18,4 +18,9 @@ class Country extends Model
     {
         return $query->orderBy('title')->get(['title', 'capital', 'created_at']);
     }
+
+    public function statistic()
+    {
+        return $this->hasOne(Statistic::class);
+    }
 }

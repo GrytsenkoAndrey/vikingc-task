@@ -8,23 +8,48 @@ use Illuminate\Support\Facades\Log;
 
 class HotelService
 {
-    public function getHotels(string $city_name)
+    /**
+     * Get hotels by City
+     * @param string $city_name
+     * @return array|string[]
+     */
+    public function getData(string $city_name): array
     {
         if (empty(trim($city_name))) {
-            Log::warning(__METHOD__ . '; line: ' . __LINE__ . ' an empty given parameter');
+            $message = __METHOD__ . '; line: ' . __LINE__ . ' an empty given parameter';
+            Log::warning($message);
 
-            return 'Error';
+            return ['error' => $message];
         }
 
         $response = Http::withHeaders([
-            'x-rapidapi-host' => config('custom.api.hotels.host'),
-            'x-rapidapi-key'  => config('custom.api.hotels.key')
-        ])->get(config('custom.api.hotels.url'), [
+            'x-rapidapi-host' => config('custom.api.rapidapi.hotels.host'),
+            'x-rapidapi-key'  => config('custom.api.rapidapi.key')
+        ])->get(config('custom.api.rapidapi.hotels.url'), [
             'query' => $city_name,
-            'locale' => config('custom.api.hotels.locale'),
-            'currency' => config('custom.api.hotels.currency')
+            'locale' => config('custom.api.rapidapi.hotels.locale'),
+            'currency' => config('custom.api.rapidapi.hotels.currency')
         ]);
 
-        return $response;
+        $result = json_decode($response->body(), true);
+        if (! array_key_exists('suggestions', $result)) {
+            $message = __METHOD__ . '; line: ' . __LINE__ . ' wrong response';
+            Log::warning($message);
+
+            return ['error' => $message];
+        }
+
+        return $this->getHotelInfoFromResponseSuggestions($result['suggestions']);
+    }
+
+    private function getHotelInfoFromResponseSuggestions(array $suggestions): array
+    {
+        foreach ($suggestions as $item) {
+            if ($item['group'] === 'HOTEL_GROUP') {
+                return $item['entities'];
+            }
+        }
+
+        return [];
     }
 }

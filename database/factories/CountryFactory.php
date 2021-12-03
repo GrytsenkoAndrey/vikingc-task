@@ -14,7 +14,8 @@ class CountryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'capital' => $this->faker->city(),
+            'title'   => $this->faker->country()
         ];
     }
 }

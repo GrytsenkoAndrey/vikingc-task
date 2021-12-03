@@ -9,12 +9,12 @@ class CovidService
 {
     /**
      * Covid statistic by City and Date
-     * @param string $cityId
+     * @param string $country_name
      * @param string $date
      */
-    public function getData(string $city_name, string $date): array
+    public function getData(string $country_name, string $date): array
     {
-        if (empty(trim($city_name)) || empty(trim($date))) {
+        if (empty(trim($country_name)) || empty(trim($date))) {
             $message = __METHOD__ . '; line: ' . __LINE__ . ' an empty given parameter';
             Log::warning($message);
 
@@ -25,7 +25,7 @@ class CovidService
             'x-rapidapi-host' => config('custom.api.rapidapi.covid.host'),
             'x-rapidapi-key'  => config('custom.api.rapidapi.key')
         ])->get(config('custom.api.rapidapi.covid.url'), [
-            'name' => $city_name,
+            'name' => $country_name,
             'date' => $date
         ]);
 

@@ -29,4 +29,11 @@ Route::group([
     Route::get('/', [\App\Http\Controllers\CountryController::class, 'index'])->name('index');
 });
 
+Route::group([
+    'prefix' => 'export',
+    'as'     => 'export.'
+], function () {
+    Route::get('/stat', [\App\Http\Controllers\ExportController::class, 'statistic'])->name('stat');
+});
+
 

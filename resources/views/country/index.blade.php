@@ -39,7 +39,7 @@
         <button type="submit" class="btn btn-primary">Filter</button>
     </form>
 
-    @if ($statistic)
+    @if ($statistic->count() > 0)
     <h2>Result</h2>
         @forelse ($statistic as $country)
             <p>{{ $country->capital }}, {{ $country->title }}, {{ $country->created_at->format('Y-m-d') }}</p>
@@ -50,5 +50,6 @@
             </p>
         @empty
         @endforelse
+        <a href="{{ route('export.stat', request()->all()) }}" target="_blank" title="Export statistic">Export Statistic</a>
     @endif
 @endsection

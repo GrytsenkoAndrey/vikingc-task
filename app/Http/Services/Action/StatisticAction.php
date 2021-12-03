@@ -12,7 +12,7 @@ class StatisticAction
         CovidService $covidService,
         HotelService $hotelService,
         OpenweatherService $weatherService
-    )
+    ): void
     {
         # get countries
         $countries = Country::all();

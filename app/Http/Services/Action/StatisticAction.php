@@ -28,13 +28,13 @@ class StatisticAction
             try {
                 $stat['weather'] = json_encode($weatherService->getData($country->capital));
             } catch (\Exception $e) {
-                Log::error('Class ' . $covidService::class . ': ' . $e->getMessage());
+                Log::error('Class ' . $weatherService::class . ': ' . $e->getMessage());
             }
 
             try {
                 $stat['hotels'] = json_encode($hotelService->getData($country->capital));
             } catch (\Exception $e) {
-                Log::error('Class ' . $covidService::class . ': ' . $e->getMessage());
+                Log::error('Class ' . $hotelService::class . ': ' . $e->getMessage());
             }
 
             $country->statistic()->updateOrCreate(['country_id' => $country->id], $stat);
